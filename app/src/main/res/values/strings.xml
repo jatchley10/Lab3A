@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Lab 3A - Calculator</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="u221a">√</string>
+    <string name="c">C</string>
+    <string name="sqrt">Sqrt</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_u00B1">+</string>
+    <string name="_pct">%</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="u00f7">÷</string>
+    <string name="u00d7">×</string>
+    <string name="u2212">−</string>
+    <string name="u00b1">±</string>
+    <string name="_0">0</string>
+    <string name="u002e">.</string>
+    <string name="u002b">+</string>
+    <string name="u003d">=</string>
+</resources>
