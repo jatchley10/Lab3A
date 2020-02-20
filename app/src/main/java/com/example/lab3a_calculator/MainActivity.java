@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int count = 0;
+    public int decCount = 0;
     public String expression = "";
     public void numKeyPressed(View v){
         String buttonText = ((Button) v).getText().toString();
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     public void clearBtnPressed(View v){
         TextView window = (TextView) findViewById(R.id.outputView);
         window.setText("0");
+        expression = "";
         count = 0;
+        decCount = 0;
     }
 
     public void sqRtButtonPressed(View v){
@@ -45,6 +48,47 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void decPressed(View v){
-        
+        TextView window = (TextView) findViewById(R.id.outputView);
+
+        if(decCount < 1){
+            window.append(".");
+            expression += ".";
+            decCount += 1;
+        }
+    }
+    //Change later to evaluate expression
+    public void equalPressed(View v){
+        TextView window = (TextView) findViewById(R.id.outputView);
+
+        window.setText(expression);
+    }
+
+
+    public void operatorBtnPressed(View v){
+        TextView window = (TextView) findViewById(R.id.outputView);
+        String buttonText = ((Button) v).getText().toString();
+        expression += buttonText;
+        window.setText("");
+    }
+
+    public void flipSign(View v){
+        TextView window = (TextView) findViewById(R.id.outputView);
+
+        int numToCon = Integer.parseInt(window.getText().toString());
+
+        if(numToCon > 0){
+            numToCon = -numToCon;
+            window.setText(Integer.toString(numToCon));
+        }
+        else{
+            window.setText(Integer.toString(Math.abs(numToCon)));
+        }
+    }
+
+    public void sqrtPressed(View v){
+        TextView window = (TextView) findViewById(R.id.outputView);
+        double numToSquare = Double.parseDouble(window.getText().toString());
+
+        window.setText(Double.toString(Math.sqrt(numToSquare)));
     }
 }
