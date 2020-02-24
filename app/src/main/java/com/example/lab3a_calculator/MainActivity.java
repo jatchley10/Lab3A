@@ -8,12 +8,19 @@ import android.view.*;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView window = (TextView) findViewById(R.id.outputView);
+        window.setText("0");
     }
 
     public int count = 0;
@@ -42,11 +49,6 @@ public class MainActivity extends AppCompatActivity {
         decCount = 0;
     }
 
-    public void sqRtButtonPressed(View v){
-
-    }
-
-
     public void decPressed(View v){
         TextView window = (TextView) findViewById(R.id.outputView);
 
@@ -59,8 +61,52 @@ public class MainActivity extends AppCompatActivity {
     //Change later to evaluate expression
     public void equalPressed(View v){
         TextView window = (TextView) findViewById(R.id.outputView);
+        String operator = "";
+        String[] splitExpression = new String[3];
 
-        window.setText(expression);
+        String result = "";
+
+        if(expression.contains("+")){
+            splitExpression = expression.split("\\+");
+
+            BigDecimal left = new BigDecimal(splitExpression[0]);
+            BigDecimal right = new BigDecimal(splitExpression[1]);
+
+            result = left.add(right).toString();
+            expression = result;
+        }
+
+        else if(expression.contains("\u2212")){
+            splitExpression = expression.split("\u2212");
+
+            BigDecimal left = new BigDecimal(splitExpression[0]);
+            BigDecimal right = new BigDecimal(splitExpression[1]);
+            result = left.subtract(right).toString();
+            expression = result;
+        }
+
+        else if(expression.contains("\u00d7")){
+            splitExpression = expression.split("\u00d7");
+
+            BigDecimal left = new BigDecimal(splitExpression[0]);
+            BigDecimal right = new BigDecimal(splitExpression[1]);
+            result = left.multiply(right).toString();
+            expression = result;
+        }
+
+        else{
+            splitExpression = expression.split("\u00f7");
+
+            BigDecimal left = new BigDecimal(splitExpression[0]);
+            BigDecimal right = new BigDecimal(splitExpression[1]);
+            result = left.divide(right).toString();
+            expression = result;
+        }
+
+
+
+        window.setText(result);
+
     }
 
 
@@ -73,14 +119,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void flipSign(View v){
         TextView window = (TextView) findViewById(R.id.outputView);
+        String originalNum = window.getText().toString();
+
 
         int numToCon = Integer.parseInt(window.getText().toString());
 
         if(numToCon > 0){
             numToCon = -numToCon;
+            expression.replace(originalNum, Integer.toString(numToCon));
             window.setText(Integer.toString(numToCon));
         }
         else{
+            expression.replace(originalNum, Integer.toString(Math.abs(numToCon)));
             window.setText(Integer.toString(Math.abs(numToCon)));
         }
     }
@@ -90,5 +140,21 @@ public class MainActivity extends AppCompatActivity {
         double numToSquare = Double.parseDouble(window.getText().toString());
 
         window.setText(Double.toString(Math.sqrt(numToSquare)));
+    }
+
+    public void testExpression(View v){
+        TextView window = (TextView) findViewById(R.id.outputView);
+        window.setText(expression);
+    }
+
+    public void pctPressed(View v){
+        TextView window = (TextView) findViewById(R.id.outputView);
+
+        BigDecimal x = new BigDecimal(window.getText().toString());
+
+        x = x.divide(new BigDecimal(100));
+
+        window.setText(x.toString());
+
     }
 }
